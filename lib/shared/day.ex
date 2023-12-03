@@ -1,10 +1,12 @@
 defmodule AdventOfCode.Shared.Day do
   require Logger
-  @callback get_example() :: {String.t(), any()}
+  @callback get_example_1() :: {String.t(), any()}
+  @callback get_example_2() :: {String.t(), any()}
 
   @callback example_1(String.t()) :: any()
   @callback part_1(String.t()) :: any()
 
+  @callback example_2(String.t()) :: any()
   @callback part_2(String.t(), any()) :: any()
 
   defmacro __using__(_args) do
@@ -15,7 +17,7 @@ defmodule AdventOfCode.Shared.Day do
 
       def call(cwd) do
         Logger.info("running example 1: ")
-        {test_case, answer} = get_example()
+        {test_case, answer} = get_example_1()
         e1 = example_1(load_example_data(test_case))
         Logger.info(inspect(e1))
 
@@ -28,8 +30,18 @@ defmodule AdventOfCode.Shared.Day do
         p1 = part_1(load_data(cwd, "part_one.txt"))
         Logger.info(inspect(p1))
 
+        Logger.info("running example 2: ")
+        {test_case, answer} = get_example_2()
+        e2 = example_2(load_example_data(test_case))
+        Logger.info(inspect(e2))
+
+        if e2 != answer do
+          Logger.error("expected: " <> inspect(answer) <> "; got: " <> inspect(e1))
+          exit(:shutdown)
+        end
+
         Logger.info("running part 2: ")
-        p2 = part_2("", p1)
+        p2 = part_2(load_data(cwd, "part_one.txt"), p1)
         Logger.info(inspect(p2))
       end
 
