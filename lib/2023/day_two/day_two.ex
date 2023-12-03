@@ -18,17 +18,9 @@ defmodule AdventOfCode.TwentyTwentyThree.Day2 do
 
   @impl true
   def get_example_2() do
-    test_case = """
-    two1nine
-    eightwothree
-    abcone2threexyz
-    xtwone3four
-    4nineeightseven2
-    zoneight234
-    7pqrstsixteen
-    """
+    {test_case, _} = get_example_1()
 
-    answer = 281
+    answer = 2286
     {test_case, answer}
   end
 
@@ -43,7 +35,7 @@ defmodule AdventOfCode.TwentyTwentyThree.Day2 do
 
     d2 =
       d
-      |> Enum.filter(fn {id, items} ->
+      |> Enum.filter(fn {_, items} ->
         Enum.any?(items, fn item ->
           Map.get(item, "red", 0) > @p1_red_max ||
             Map.get(item, "green", 0) > @p1_green_max ||
@@ -56,7 +48,9 @@ defmodule AdventOfCode.TwentyTwentyThree.Day2 do
   end
 
   @impl true
-  def part_2(_input, _p1) do
+  def part_2(input, _p1) do
+    d = parse_input(input)
+
     :ok
   end
 
@@ -87,10 +81,8 @@ defmodule AdventOfCode.TwentyTwentyThree.Day2 do
 
       parts =
         game_prefix
-        |> :lists.reverse()
-        |> hd()
+        |> List.last()
         |> String.split(";")
-        |> Enum.map(&String.trim/1)
         |> Enum.map(fn group ->
           String.split(group, ", ")
           |> Enum.reduce(%{}, fn item, acc ->
