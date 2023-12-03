@@ -32,20 +32,8 @@ defmodule AdventOfCode.TwentyTwentyThree.Day1 do
   end
 
   @impl true
-  def example_1(input) do
-    parts = run_day(input, &String.codepoints/1)
-    Enum.sum(parts)
-  end
-
-  @impl true
   def part_1(input) do
     parts = run_day(input, &String.codepoints/1)
-    Enum.sum(parts)
-  end
-
-  @impl true
-  def example_2(input) do
-    parts = run_day(input, &part2_parser/1)
     Enum.sum(parts)
   end
 
