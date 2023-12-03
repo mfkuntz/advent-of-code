@@ -8,7 +8,10 @@ format:
 type-check:
     mix dialyzer
 
-run DAY: format
+run-old DAY: format
     elixir ./lib/main.exs {{DAY}}
+
+run DAY: format
+    mix DayRunner {{DAY}}
 
 run-debug DAY: format type-check (run DAY)

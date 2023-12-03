@@ -1,22 +1,21 @@
-defmodule AdventOfCode.CLI do
+defmodule Mix.Tasks.DayRunner do
   require Logger
+
+  use Mix.Task
 
   @moduledoc """
   CLI EXS entrypoint
   """
 
-  def call() do
-    [day] = System.argv()
+  def run(_) do
+    [_mod, day] = System.argv()
     Logger.info("Running code for Day " <> day)
     load_module(day)
   end
 
   defp load_module(day) do
-    Code.require_file("day.ex", "./lib/shared")
-
     human_day = say_io(String.to_integer(day))
     folder = "./lib/2023/day_" <> human_day
-    Code.require_file("day_" <> human_day <> ".ex", folder)
 
     apply(String.to_existing_atom("Elixir.AdventOfCode.TwentyTwentyThree.Day" <> day), :call, [
       folder
@@ -47,4 +46,4 @@ defmodule AdventOfCode.CLI do
   def say_io(n), do: Integer.to_string(n)
 end
 
-AdventOfCode.CLI.call()
+# AdventOfCode.CLI.call()
