@@ -47,11 +47,37 @@ defmodule AdventOfCode.TwentyTwentyThree.Day2 do
     Enum.sum(d2)
   end
 
+  @p2_empty %{"blue" => 0, "green" => 0, "red" => 0}
+
   @impl true
   def part_2(input, _p1) do
     d = parse_input(input)
 
-    :ok
+    d2 =
+      d
+      |> Enum.map(fn {_, it} -> it end)
+      |> Enum.map(fn inner ->
+        Enum.reduce(inner, @p2_empty, fn it, acc ->
+          blue = Map.get(acc, "blue")
+          green = Map.get(acc, "green")
+          red = Map.get(acc, "red")
+
+          blue2 = Map.get(it, "blue", 0)
+          green2 = Map.get(it, "green", 0)
+          red2 = Map.get(it, "red", 0)
+
+          # i wonder if get_and_update is faster? syntax is more annoying
+          acc
+          |> Map.put("blue", max(blue, blue2))
+          |> Map.put("green", max(green, green2))
+          |> Map.put("red", max(red, red2))
+        end)
+      end)
+      |> Enum.map(fn %{"blue" => b, "green" => g, "red" => r} ->
+        b * g * r
+      end)
+
+    Enum.sum(d2)
   end
 
   @digits_regex ~r/(\d+)\s(\w+)/
