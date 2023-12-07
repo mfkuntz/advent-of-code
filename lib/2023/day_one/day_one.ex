@@ -2,6 +2,8 @@ defmodule AdventOfCode.TwentyTwentyThree.Day1 do
   require Logger
   use AdventOfCode.Shared.Day
 
+  alias AdventOfCode.Shared.Utils
+
   @impl true
   def get_example_1() do
     test_case = """
@@ -46,18 +48,7 @@ defmodule AdventOfCode.TwentyTwentyThree.Day1 do
   @digits_regex ~r/(?=(\d))|(?=(one)|(two)|(three)|(four)|(five)|(six)|(seven)|(eight)|(nine))/
 
   defp convert_digit(digit) when is_binary(digit) do
-    case digit do
-      "one" -> 1
-      "two" -> 2
-      "three" -> 3
-      "four" -> 4
-      "five" -> 5
-      "six" -> 6
-      "seven" -> 7
-      "eight" -> 8
-      "nine" -> 9
-      _ -> digit
-    end
+    Utils.name_to_digit(digit)
     |> to_string()
   end
 
