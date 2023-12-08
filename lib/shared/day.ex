@@ -33,7 +33,7 @@ defmodule AdventOfCode.Shared.Day do
         Logger.info(inspect(e2))
 
         if e2 != answer do
-          Logger.error("expected: " <> inspect(answer) <> "; got: " <> inspect(e1))
+          Logger.error("expected: " <> inspect(answer) <> "; got: " <> inspect(e2))
           exit(:shutdown)
         end
 
