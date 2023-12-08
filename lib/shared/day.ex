@@ -23,6 +23,8 @@ defmodule AdventOfCode.Shared.Day do
           exit(:shutdown)
         end
 
+        AdventOfCode.Shared.Visualizer.close()
+
         Logger.info("running part 1: ")
         p1 = part_1(load_data(cwd, "part_one.txt"))
         Logger.info(inspect(p1))
@@ -40,6 +42,8 @@ defmodule AdventOfCode.Shared.Day do
         Logger.info("running part 2: ")
         p2 = part_2(load_data(cwd, "part_one.txt"), p1)
         Logger.info(inspect(p2))
+
+        AdventOfCode.Shared.Visualizer.visualize()
       end
 
       defp load_example_data(test_case) do
@@ -68,6 +72,11 @@ defmodule AdventOfCode.Shared.Day do
 
       defp parse_text(t) do
         String.split(t, "\n")
+      end
+
+      def log_item(op, item) do
+        AdventOfCode.Shared.Visualizer.push(%{op: op, item: item})
+        item
       end
     end
   end

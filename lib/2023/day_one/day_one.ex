@@ -67,6 +67,7 @@ defmodule AdventOfCode.TwentyTwentyThree.Day1 do
     i =
       input
       |> Enum.map(fn line -> parser1.(line) end)
+      |> Enum.map(&log_item(:parser_1, &1))
       |> Enum.map(fn it ->
         mapped =
           it
@@ -78,20 +79,25 @@ defmodule AdventOfCode.TwentyTwentyThree.Day1 do
             {item, _} = inner
             item
           end)
+          |> Enum.map(&log_item(:int_parsed, &1))
 
-        case length(mapped) do
-          0 ->
-            0
+        c =
+          case length(mapped) do
+            0 ->
+              0
 
-          1 ->
-            h = hd(mapped)
-            concat_ints(h, h)
+            1 ->
+              h = hd(mapped)
+              concat_ints(h, h)
 
-          _ ->
-            h = hd(mapped)
-            t = List.last(mapped)
-            concat_ints(h, t)
-        end
+            _ ->
+              h = hd(mapped)
+              t = List.last(mapped)
+              concat_ints(h, t)
+          end
+
+        log_item(:concat_ints, c)
+        c
       end)
 
     i
